@@ -49,7 +49,11 @@ SET default_table_access_method = heap;
 
 CREATE TABLE public.galaxy (
     galaxy_id integer NOT NULL,
-    name character varying NOT NULL
+    name character varying NOT NULL,
+    description text,
+    has_life boolean,
+    is_spherical boolean,
+    age_in_millions_of_years integer
 );
 
 
@@ -83,7 +87,10 @@ ALTER SEQUENCE public.galaxy_galaxy_id_seq OWNED BY public.galaxy.galaxy_id;
 
 CREATE TABLE public.moon (
     moon_id integer NOT NULL,
-    name character varying NOT NULL
+    name character varying NOT NULL,
+    description text,
+    has_life boolean,
+    is_spherical boolean
 );
 
 
@@ -117,7 +124,11 @@ ALTER SEQUENCE public.moon_moon_id_seq OWNED BY public.moon.moon_id;
 
 CREATE TABLE public.planet (
     planet_id integer NOT NULL,
-    name character varying NOT NULL
+    name character varying NOT NULL,
+    description text,
+    has_life boolean,
+    is_spherical boolean,
+    distance_from_earth numeric
 );
 
 
@@ -152,7 +163,11 @@ ALTER SEQUENCE public.planet_planet_id_seq OWNED BY public.planet.planet_id;
 CREATE TABLE public.star (
     star_id integer NOT NULL,
     name character varying NOT NULL,
-    galaxy_id integer NOT NULL
+    galaxy_id integer NOT NULL,
+    description text,
+    has_life boolean,
+    is_spherical boolean,
+    age_in_millions_of_years integer
 );
 
 
@@ -212,6 +227,12 @@ ALTER TABLE ONLY public.star ALTER COLUMN star_id SET DEFAULT nextval('public.st
 -- Data for Name: galaxy; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
+INSERT INTO public.galaxy VALUES (1, 'Milky way', 'The galaxy containing the Sun and its Solar System, and therefore Earth.', true, true, 1);
+INSERT INTO public.galaxy VALUES (2, 'Eye of God', 'A prototype for multi-arm spiral galaxies', true, false, 10);
+INSERT INTO public.galaxy VALUES (3, 'Fireworks Galaxy', 'Active starburst galaxy', true, false, 100);
+INSERT INTO public.galaxy VALUES (4, 'Antennae Galaxies', 'Two colliding galaxies', false, false, 1200);
+INSERT INTO public.galaxy VALUES (5, 'Cigar Galaxy', 'Also known as Messier 82 or M82', true, false, 10);
+INSERT INTO public.galaxy VALUES (6, 'Coma Pinwheel Galaxy', 'M82', true, false, 103);
 
 
 --
@@ -230,13 +251,19 @@ ALTER TABLE ONLY public.star ALTER COLUMN star_id SET DEFAULT nextval('public.st
 -- Data for Name: star; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
+INSERT INTO public.star VALUES (1, 'Gliese 784', 1, 'SOME TEXT', true, false, 703);
+INSERT INTO public.star VALUES (2, 'Gliese 78', 2, 'SOME TEXT2', true, false, 73);
+INSERT INTO public.star VALUES (3, 'Gliese 8', 3, 'TEXT2', true, false, 73);
+INSERT INTO public.star VALUES (4, 'Gliese', 4, 'TEXT', true, false, 73);
+INSERT INTO public.star VALUES (5, 'Glies', 5, 'TEX', false, false, 3);
+INSERT INTO public.star VALUES (6, 'Glie', 6, 'TX', false, false, 35);
 
 
 --
 -- Name: galaxy_galaxy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
 --
 
-SELECT pg_catalog.setval('public.galaxy_galaxy_id_seq', 1, false);
+SELECT pg_catalog.setval('public.galaxy_galaxy_id_seq', 6, true);
 
 
 --
@@ -257,7 +284,7 @@ SELECT pg_catalog.setval('public.planet_planet_id_seq', 1, false);
 -- Name: star_star_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
 --
 
-SELECT pg_catalog.setval('public.star_star_id_seq', 1, false);
+SELECT pg_catalog.setval('public.star_star_id_seq', 6, true);
 
 
 --
